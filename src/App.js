@@ -1,23 +1,58 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { db } from './firebase';
+import ProjectForm from './components/ProjectForm';
+import ProjectList from './components/ProjectList';
 import './App.css';
 
 function App() {
+  const [projects, setProjects] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+
+  // Cargar proyectos desde Firestore al montar el componente
+  useEffect(() => {
+    // onSnapshot escucha cambios en tiempo real
+    const unsubscribe = db.collection('projects')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const projectsData = [];
+        snapshot.forEach((doc) => {
+          projectsData.push({ 
+            id: doc.id, 
+            ...doc.data() 
+          });
+        });
+        setProjects(projectsData);
+      });
+
+    // Cleanup: desuscribirse al desmontar
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>📊 Gestión de Proyectos</h1>
+        
+        {/* RENDERIZADO CONDICIONAL: Botón cambia según showForm */}
+        <button onClick={() => setShowForm(!showForm)}>
+          {showForm ? '❌ Cancelar' : '➕ Agregar Proyecto'}
+        </button>
       </header>
+
+      {/* RENDERIZADO CONDICIONAL: Mostrar formulario solo si showForm=true */}
+      {showForm && (
+        <ProjectForm onProjectAdded={() => setShowForm(false)} />
+      )}
+
+      {/* RENDERIZADO CONDICIONAL: Mensaje o lista según haya proyectos */}
+      {projects.length === 0 ? (
+        <div className="no-projects">
+          <p>📭 No hay proyectos</p>
+          <p>Haz clic en "Agregar Proyecto" para comenzar</p>
+        </div>
+      ) : (
+        <ProjectList projects={projects} />
+      )}
     </div>
   );
 }
