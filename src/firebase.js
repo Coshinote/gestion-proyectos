@@ -1,17 +1,8 @@
 // src/firebase.js
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/functions';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/functions';
 
-// PEGA AQUÍ tu configuración de Firebase que copiaste en el Paso 5
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBWIJbcfTDmXZjmr2vrlY_a0T1NlVgxv-E",
   authDomain: "gestion-proyectos-9899b.firebaseapp.com",
@@ -22,14 +13,19 @@ const firebaseConfig = {
   measurementId: "G-SWE8F8ZPSX"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-// Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Exportar servicios para usarlos en otros archivos
 export const db = firebase.firestore();
 export const functions = firebase.functions();
+
+// ✅ CONFIGURAR EMULADOR
+if (window.location.hostname === 'localhost') {
+  console.log('🔥 Usando Firebase Emulator Suite - Modo DESARROLLO');
+  
+  db.useEmulator('localhost', 8080);
+  
+  // ✅ IMPORTANTE: Especificar región explícitamente
+  functions.useEmulator('localhost', 5001);
+}
+
 export default firebase;

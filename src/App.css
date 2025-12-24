@@ -1,68 +1,86 @@
-/* App.css */
+/* src/App.css */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.App {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  padding: 20px;
 }
 
+.App {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ========== HEADER ========== */
 header {
-  background-color: white;
+  background: white;
   padding: 30px;
-  border-radius: 10px;
-  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   margin-bottom: 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 header h1 {
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #667eea;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
-button {
-  background-color: #3498db;
+header button {
+  background: #667eea;
   color: white;
   border: none;
-  padding: 12px 25px;
-  border-radius: 5px;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
-button:hover {
-  background-color: #2980b9;
+header button:hover {
+  background: #5568d3;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 15px rgba(102,126,234,0.4);
 }
 
-button:disabled {
-  background-color: #95a5a6;
-  cursor: not-allowed;
-  transform: none;
-}
-
+/* ========== FORMULARIO ========== */
 .project-form {
-  background-color: white;
-  padding: 25px;
-  border-radius: 10px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   margin-bottom: 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .project-form h2 {
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #667eea;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
 }
 
 .form-group {
@@ -71,116 +89,189 @@ button:disabled {
 
 .form-group label {
   display: block;
+  color: #333;
+  font-weight: 600;
   margin-bottom: 8px;
-  font-weight: bold;
-  color: #2c3e50;
+  font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  transition: border-color 0.3s;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: #667eea;
 }
 
-/* Mensajes de validación */
-.srv-validation-message {
+/* Mensajes de error del validador */
+.form-group .srv-validation-message {
   color: #e74c3c;
-  font-size: 13px;
+  font-size: 0.85rem;
   margin-top: 5px;
   display: block;
 }
 
-.project-list {
-  margin-top: 30px;
-}
-
-.project-list h2 {
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-.project-card {
-  background-color: white;
-  border-left: 5px solid #3498db;
+.project-form button[type="submit"] {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 14px 40px;
   border-radius: 8px;
-  padding: 25px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.project-form button[type="submit"]:hover:not(:disabled) {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102,126,234,0.4);
 }
 
-.project-card h3 {
-  color: #2c3e50;
-  margin-bottom: 12px;
-  font-size: 20px;
+.project-form button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
-.project-card .description {
-  color: #7f8c8d;
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-.external-data {
-  background-color: #ecf0f1;
-  padding: 15px;
-  border-radius: 5px;
-  margin: 15px 0;
-  border-left: 3px solid #16a085;
-}
-
-.external-data h4 {
-  color: #16a085;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.external-data p {
-  color: #555;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-.delete-btn {
-  background-color: #e74c3c;
-  margin-top: 15px;
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
-}
-
+/* ========== MENSAJE SIN PROYECTOS ========== */
 .no-projects {
-  background-color: white;
+  background: white;
+  padding: 60px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   text-align: center;
-  padding: 60px 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .no-projects p:first-child {
-  font-size: 24px;
-  color: #95a5a6;
+  font-size: 1.5rem;
+  color: #667eea;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
 .no-projects p:last-child {
-  color: #bdc3c7;
-  font-size: 14px;
+  color: #666;
+  font-size: 1rem;
+}
+
+/* ========== LISTA DE PROYECTOS ========== */
+.project-list {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.project-list h2 {
+  color: #667eea;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+}
+
+/* ========== TARJETA DE PROYECTO ========== */
+.project-card {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 5px 20px rgba(102,126,234,0.15);
+  transform: translateY(-3px);
+}
+
+.project-card h3 {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.project-card .description {
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* ========== DATOS EXTERNOS ========== */
+.external-data {
+  background: #fff;
+  border-left: 4px solid #667eea;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+.external-data h4 {
+  color: #667eea;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.external-data p {
+  color: #555;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.external-data p:last-child {
+  margin-bottom: 0;
+}
+
+/* ========== FECHA DE CREACIÓN ========== */
+.created-date {
+  color: #999;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ========== BOTÓN ELIMINAR ========== */
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231,76,60,0.4);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  header button {
+    width: 100%;
+  }
 }

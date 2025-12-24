@@ -10,23 +10,22 @@ function App() {
 
   // Cargar proyectos desde Firestore al montar el componente
   useEffect(() => {
-    // onSnapshot escucha cambios en tiempo real
-    const unsubscribe = db.collection('projects')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot((snapshot) => {
-        const projectsData = [];
-        snapshot.forEach((doc) => {
-          projectsData.push({ 
-            id: doc.id, 
-            ...doc.data() 
-          });
+  const unsubscribe = db.collection('projects')
+    .orderBy('createdAt', 'desc')
+    .onSnapshot((snapshot) => {
+      const projectsData = [];
+      snapshot.forEach((doc) => {
+        projectsData.push({ 
+          id: doc.id, 
+          ...doc.data() 
         });
-        setProjects(projectsData);
       });
+      console.log('📊 Proyectos cargados desde Firestore:', projectsData); // ← AGREGAR
+      setProjects(projectsData);
+    });
 
-    // Cleanup: desuscribirse al desmontar
-    return () => unsubscribe();
-  }, []);
+  return () => unsubscribe();
+}, []);
 
   return (
     <div className="App">
